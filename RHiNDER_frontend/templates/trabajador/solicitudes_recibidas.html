@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>{{ titulo }}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.svg">
+
+    <link rel="stylesheet" href="/static/css/comun/comun.css"/>
+    <link rel="stylesheet" href="/static/css/trabajador/solicitudes_enviadas.css"/>
+    <link rel="stylesheet" href="/static/css/trabajador/mini_calendario_modal.css"/>
+    <link rel="stylesheet" href="/static/css/trabajador/calendario.css"/>
+
+</head>
+
+<body>
+
+<!-- 1) HEADER -->
+<!--====================================================================================-->
+{% include 'comun/header.html' %}
+
+<div class="app-container">
+    <main class="contenido-principal vista-solicitudes-recibidas">
+
+        <div class="envoltorio-contenido">
+
+                      <!-- 2) CABECERA DE VISTA -->
+        <!--====================================================================================-->
+            <header class="cabecera-vista">
+                <h2 class="titulo-seccion">Solicitudes recibidas</h2>
+                <p class="cabecera-vista__subtitulo">
+                    Consulta las solicitudes que te han enviado otros compañeros.
+                </p>
+            </header>
+
+            <!-- 3) ESTADÍSITCAS -->
+            <!--====================================================================================-->
+            <section class="rejilla-estadisticas" id="rejilla-estadisticas" aria-label="Resumen de solicitudes">
+            </section>
+
+            <!-- 4) FILTROS -->
+            <!--====================================================================================-->
+            <section class="panel panel--padded filtros-solicitudes" id="contenedor-filtros"
+                     aria-label="Filtros de solicitudes">
+            </section>
+
+            <!-- 5) TABLA -->
+            <!--====================================================================================-->
+            <section class="panel seccion-tabla-solicitudes" id="panel-seccion-tabla"
+                     aria-label="Listado de solicitudes recibidas">
+
+                <!-- a. Cabecera tabla -->
+                <div class="cabecera-tabla">
+                    <h3 class="cabecera-tabla__titulo">Solicitudes recibidas</h3>
+                    <span class="cabecera-tabla__contador" id="contadorResultados">0 resultados</span>
+                </div>
+
+                <!-- b. Contenedor tabla -->
+                <div class="contenedor-tabla">
+                    <table class="tabla" id="tablaSolicitudes">
+                        <thead>
+                        <tr>
+                            <th>Id Solicitud</th>
+                            <th>Emisor</th>
+                            <th>Turno ofrecido</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla"></tbody>
+                    </table>
+                </div>
+
+                <!-- c. Estado vacío-->
+                <div id="estadoVacio" class="estado-vacio">
+                    No hay solicitudes con los filtros actuales.
+                </div>
+            </section>
+
+
+            <!-- 5) PAGINACIÓN -->
+            <!--====================================================================================-->
+            <section class="panel " id="contenedor-paginacion" aria-label="paginacion">
+
+            </section>
+
+            <!-- 6) MODALES -->
+            <!--====================================================================================-->
+
+            <!-- =========================
+             MODAL 1: MINI CALENDARIO
+             ========================= -->
+            <div class="modal-overlay" id="modal-mini-calendario" hidden>
+
+                <div class="modal-content modal-mini-cal" role="dialog" aria-modal="true"
+                     aria-labelledby="miniCalTitle">
+
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="miniCalTitle">Selecciona tu turno para el intercambio</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <p class="modal-message" id="miniCalMessage"></p>
+
+                        <!-- Navegación mini calendario (mismas clases que calendario grande) -->
+                        <section class="calendario-navegacion mini-cal" aria-label="Navegación mini calendario">
+                            <!-- Mes anterior: prevMonth se inyecta por JS -->
+                            <button class="calendario-boton-nav" id="miniPrevMonth" type="button"
+                                    aria-label="Mes anterior">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M15 19l-7-7 7-7"/>
+                                </svg>
+                            </button>
+
+                            <!-- Mes actual: currentMonth se inyecta por JS -->
+                            <div class="calendario-mes-actual" id="miniCurrentMonth" aria-live="polite"></div>
+
+                            <!-- Mes siguiente: nextMonth se inyecta por JS -->
+                            <button class="calendario-boton-nav" id="miniNextMonth" type="button"
+                                    aria-label="Mes siguiente">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </section>
+
+                        <!-- Mini calendario -->
+                        <section class="calendario-panel mini-cal" aria-label="Mini calendario mensual">
+
+                            <div class="calendario-cuadricula" id="miniCalendarGrid" role="grid"
+                                 aria-label="Días del mes">
+                                <div class="calendario-cabecera-dia" role="columnheader">L</div>
+                                <div class="calendario-cabecera-dia" role="columnheader">M</div>
+                                <div class="calendario-cabecera-dia" role="columnheader">X</div>
+                                <div class="calendario-cabecera-dia" role="columnheader">J</div>
+                                <div class="calendario-cabecera-dia" role="columnheader">V</div>
+                                <div class="calendario-cabecera-dia" role="columnheader">S</div>
+                                <div class="calendario-cabecera-dia" role="columnheader">D</div>
+                            </div>
+
+                            <!-- días inyectados por JS -->
+
+                        </section>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn btn--secondary" type="button" data-close-modal="modal-mini-calendario">
+                            Cerrar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- =========================
+                 MODAL 2: RESPONDER SOLICITUD
+                 ========================= -->
+            <div class="modal-overlay" id="modal-responder-solicitud"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="titulo-responder-solicitud" hidden>
+            </div>
+
+            <!-- =========================
+                 MODAL 3: CONFIRMAR ENVÍO
+            ========================= -->
+            <div class="modal-overlay"
+                 id="modal-confirmar-respuesta"
+
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="titulo-confirmar-respuesta" hidden>
+            </div>
+
+            <!-- =========================
+                  MODAL 4: ÉXITO
+             ========================= -->
+            <div class="modal-overlay"
+                 id="modal-exito-respuesta"
+
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="titulo-exito-respuesta">
+
+                <div class="modal-content">
+                     <!-- a. header -->
+                    <header class="modal-header" hidden>
+                        <h2 id="titulo-exito-respuesta">Respuesta enviada</h2>
+                        <p>Tu respuesta se ha enviado correctamente.</p>
+                    </header>
+
+                     <!-- b. cuerpo -->
+                    <div class="grupo-formulario">
+                        <div style="margin-bottom: 0.75rem; color: var(--color-texto-secundario); font-size: 0.9rem;">
+                            Solicitud
+                        </div>
+                        <div id="exito-solicitud" style="font-weight: 600;">—</div>
+
+                        <div style="margin-top: 1rem; margin-bottom: 0.75rem; color: var(--color-texto-secundario); font-size: 0.9rem;">
+                            Turno ofrecido
+                        </div>
+                        <div id="exito-turno" style="font-weight: 600;">—</div>
+
+                        <div style="margin-top: 1rem; margin-bottom: 0.75rem; color: var(--color-texto-secundario); font-size: 0.9rem;">
+                            Fecha
+                        </div>
+                        <div id="exito-fecha" style="font-weight: 600;">—</div>
+                    </div>
+
+                     <!-- c. acciones -->
+                    <div class="modal-acciones">
+                        <button class="btn btn--primary" type="button" id="btn-cerrar-exito-respuesta">
+                            Volver
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </main>
+</div>
+
+<!-- 7) NAVEGADOR -->
+<!--====================================================================================-->
+{% include 'trabajador/nav_trabajador.html' %}
+
+
+<!-- scripts -->
+<script type="module" src="/static/js/trabajador/solicitudes_recibidas.js"></script>
+
+</body>
+</html>

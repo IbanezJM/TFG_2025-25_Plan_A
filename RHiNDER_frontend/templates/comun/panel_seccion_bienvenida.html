@@ -1,0 +1,25 @@
+<!-- Sección de bienvenida -->
+<section class="seccion-bienvenida">
+
+    <!-- a. Cabecera bienvenida -->
+    <div class="cabecera-bienvenida">
+        <div>
+            <h2 class="titulo-bienvenida">Panel de {{ rol }}</h2>
+            <p class="subtitulo-bienvenida">Resumen rápido de tu actividad en RHiNDER</p>
+        </div>
+
+        <!-- b. Insignia de rol -->
+        <div class="insignia-rol">
+            <svg class="icono-insignia" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 13l4 4L19 7"/>
+            </svg>
+            {{ rol }}
+        </div>
+    </div>
+
+    <!-- c. Fecha actual -->
+    <p class="fecha-bienvenida" id="fecha-actual"></p>
+</section>
+
+

@@ -1,0 +1,313 @@
+/* =========================================================
+   01) LAYOUT SECCIÓN GRÁFICOS
+   ========================================================= */
+
+.vista-panel-coordinador .seccion-graficos{
+  margin-top: 1.5rem;
+}
+
+.vista-panel-coordinador .rejilla-graficos{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+
+.vista-panel-coordinador .tarjeta-grafico{
+  overflow: hidden; /* evita que el gráfico “se salga” */
+}
+
+/* =========================================================
+   02) CABECERA DE TARJETA GRÁFICO
+   ========================================================= */
+
+.vista-panel-coordinador .cabecera-tarjeta-grafico{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+
+  margin-bottom: 1rem;
+}
+
+.vista-panel-coordinador .titulo-grafico{
+  margin: 0;
+
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-texto-principal);
+}
+
+/* =========================================================
+   03) DROPDOWN FILTRO (reutilizable)
+   ========================================================= */
+
+.vista-panel-coordinador .dropdown-filtro{
+  position: relative;
+}
+
+/* Botón del dropdown: estilo “pill” como contador/badges */
+.vista-panel-coordinador .dropdown-filtro__boton{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+
+  background: #ffffff;
+  color: var(--color-texto-secundario);
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition: border-color .18s ease,
+              color .18s ease,
+              background-color .18s ease,
+              box-shadow .18s ease,
+              transform .08s ease;
+}
+
+.vista-panel-coordinador .dropdown-filtro__boton:active{
+  transform: translateY(1px);
+}
+
+.vista-panel-coordinador .dropdown-filtro__boton:hover{
+  border-color: color-mix(in srgb, var(--color-primario) 45%, #e2e8f0);
+  color: var(--color-primario);
+  background: #f8fafc;
+}
+
+.vista-panel-coordinador .dropdown-filtro__boton:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, .18);
+}
+
+.vista-panel-coordinador .dropdown-filtro__menu{
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+
+  min-width: 180px;
+  list-style: none;
+
+  padding: 0.35rem;
+  margin: 0;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: var(--sombra-suave);
+
+  opacity: 0;
+  transform: translateY(-6px);
+  visibility: hidden;
+
+  transition: opacity .18s ease,
+              transform .18s ease,
+              visibility 0s .18s;
+
+  z-index: 20;
+}
+
+.vista-panel-coordinador .dropdown-filtro.abierto .dropdown-filtro__menu{
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.vista-panel-coordinador .dropdown-filtro__menu button{
+  width: 100%;
+  text-align: left;
+
+  border: 0;
+  background: transparent;
+
+  cursor: pointer;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-texto-principal);
+
+  transition: background-color .18s ease, color .18s ease;
+}
+
+.vista-panel-coordinador .dropdown-filtro__menu button:hover{
+  background: #f1f5f9;
+}
+
+/* =========================================================
+   04) GRÁFICO DE BARRAS
+   ========================================================= */
+
+.vista-panel-coordinador .grafico-barras{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.65rem;
+
+  height: 180px;
+  padding: 0.25rem 0.25rem 0;
+}
+
+/* item (barra + label) */
+.vista-panel-coordinador .barra-item{
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+
+  min-width: 0;
+}
+
+/* ✅ La barra acepta --alto con % o px (tu JS usa %) */
+.vista-panel-coordinador .barra{
+  /* por defecto, si no viene del JS */
+  --alto: 10%;
+
+  width: min(34px, 70%);
+  height: var(--alto);
+ min-height: 8px;
+
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(180deg, var(--color-primario), var(--color-primario-hover));
+
+  position: relative;
+  transition: height .25s ease;
+}
+
+.vista-panel-coordinador .barra::after{
+  content: attr(data-valor);
+
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--color-texto-principal);
+}
+
+.vista-panel-coordinador .barra-label{
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-texto-secundario);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   05) DONUT (con variables CSS)
+   ========================================================= */
+
+/* propiedades animables */
+@property --p-aprobadas { syntax: "<integer>"; initial-value: 0; inherits: false; }
+@property --p-pendientes { syntax: "<integer>"; initial-value: 0; inherits: false; }
+@property --p-rechazadas { syntax: "<integer>"; initial-value: 0; inherits: false; }
+
+.vista-panel-coordinador .contenedor-donut{
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.vista-panel-coordinador .donut{
+  --w: 140px;
+
+  width: var(--w);
+  height: var(--w);
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+ background:
+  radial-gradient(farthest-side, #ffffff 79%, transparent 80%, transparent 100%),
+  conic-gradient(
+    #22c55e calc(var(--p-aprobadas) * 1%),
+    #fbbf24 calc(var(--p-aprobadas) * 1%) calc((var(--p-aprobadas) + var(--p-pendientes)) * 1%),
+    #ef4444 calc((var(--p-aprobadas) + var(--p-pendientes)) * 1%) 100%
+  );
+
+  transition: --p-aprobadas .8s, --p-pendientes .8s, --p-rechazadas .8s;
+}
+
+.vista-panel-coordinador .donut__centro{
+  text-align: center;
+}
+
+.vista-panel-coordinador .donut__total{
+  font-size: 1.9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-texto-principal);
+}
+
+.vista-panel-coordinador .donut__label{
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario);
+}
+
+.vista-panel-coordinador .leyenda-donut{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.vista-panel-coordinador .leyenda-donut li{
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  margin-bottom: 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-texto-principal);
+}
+
+.vista-panel-coordinador .leyenda-detalle{
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-texto-secundario);
+}
+
+/* puntos de leyenda */
+.vista-panel-coordinador .punto{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.vista-panel-coordinador .punto--aprobadas{ background: #22c55e; }
+.vista-panel-coordinador .punto--pendientes{ background: #fbbf24; }
+.vista-panel-coordinador .punto--rechazadas{ background: #ef4444; }
+
+
+
+/* =========================================================
+   06) MEDIA QUERIES
+   ========================================================= */
+
+/* ---------- <= 768px ---------- */
+@media (max-width: 768px){
+  .vista-panel-coordinador .contenedor-donut{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vista-panel-coordinador .leyenda-donut{
+    width: 100%;
+  }
+}

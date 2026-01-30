@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo }}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.svg">
+
+    <!-- CSS común -->
+    <link rel="stylesheet" href="/static/css/comun/comun.css">
+    <link rel="stylesheet" href="/static/css/comun/panel.css">
+    <link rel="stylesheet" href="/static/css/trabajador/calendario.css"/>
+</head>
+
+
+<body>
+<!--Header-->
+{% include 'comun/header.html' %}
+
+<!--main-->
+<main class="contenido-principal vista-panel-trabajador">
+    <div class="envoltorio-contenido">
+
+
+        <!-- 1) HEADER -->
+        <!--====================================================================================-->
+        {% include 'comun/panel_seccion_bienvenida.html' %}
+
+
+        <!-- 2) ESTADÍSITCAS -->
+        <!--====================================================================================-->
+        <section class="seccion-estadisticas" aria-label="Resumen panel del trabajador">
+            <h2 class="titulo-seccion">Resumen</h2>
+            <div class="rejilla-estadisticas">
+            </div>
+        </section>
+
+        <!-- 3) CALENDARIO -->
+        <!--====================================================================================-->
+
+        <!-- 3.1) Navegación del calendario -->
+        <section class="calendario-navegacion vista-calendario" aria-label="Navegación de meses">
+
+            <!-- a. Mes anterior: prevMonth se inyecta por JS -->
+            <button class="calendario-boton-nav" id="prevMonth" type="button" aria-label="Mes anterior">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+
+            <!-- b. Mes actual: currentMonth se inyecta por JS -->
+            <div class="calendario-mes-actual" id="currentMonth" aria-live="polite"></div>
+
+            <!-- c. Mes siguiente: nextMonth se inyecta por JS -->
+            <button class="calendario-boton-nav" id="nextMonth" type="button" aria-label="Mes siguiente">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+
+        </section>
+
+
+        <!-- 3.2.Calendario -->
+        <section class="calendario-panel" aria-label="Calendario mensual">
+
+            <!-- calendarGrid se inyecta por JS -->
+            <div class="calendario-cuadricula" id="calendarGrid" role="grid" aria-label="Días del mes">
+                <div class="calendario-cabecera-dia" role="columnheader">L</div>
+                <div class="calendario-cabecera-dia" role="columnheader">M</div>
+                <div class="calendario-cabecera-dia" role="columnheader">X</div>
+                <div class="calendario-cabecera-dia" role="columnheader">J</div>
+                <div class="calendario-cabecera-dia" role="columnheader">V</div>
+                <div class="calendario-cabecera-dia" role="columnheader">S</div>
+                <div class="calendario-cabecera-dia" role="columnheader">D</div>
+            </div>
+            <!-- días inyectados por JS -->
+        </section>
+
+
+        <!-- 3.3 Leyenda -->
+        <section class="leyenda-turnos" aria-label="Leyenda de turnos">
+            <h2 class="leyenda-turnos__titulo">Leyenda</h2>
+            <div class="leyenda-turnos__items" id="legend-items-container"></div>
+        </section>
+
+    </div>
+</main>
+
+
+<!-- 4) MODALES -->
+<!--====================================================================================-->
+
+
+<!-- 4.1 MODAL 1: Solcitud de turno -->
+<div class="modal-overlay" id="modal-solicitar" role="dialog" aria-modal="true"
+     aria-labelledby="titulo-solicitar" hidden></div>
+
+
+<!-- 4.2 MODAL 2: Confirmar -->
+<div class="modal-overlay" id="modal-confirmar" role="dialog" aria-modal="true"
+     aria-labelledby="titulo-confirmar"></div>
+
+<!-- 4.3 MODAL 3: Exito-->
+<div class="modal-overlay" id="modal-exito" role="dialog" aria-modal="true"
+     aria-labelledby="titulo-exito"></div>
+
+
+<!-- 5) NAVEGADOR -->
+<!--====================================================================================-->
+{% include 'trabajador/nav_trabajador.html' %}
+
+</body>
+
+
+<!-- scripts -->
+<script type="module" src="../../static/js/trabajador/panel_trabajador.js"></script>
+<script type="module" src="../../static/js/trabajador/calendario.js"></script>
+
+
+</html>

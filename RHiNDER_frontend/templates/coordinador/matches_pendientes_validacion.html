@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>{{ titulo }}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.svg">
+
+    <link rel="stylesheet" href="/static/css/comun/comun.css"/>
+    <link rel="stylesheet" href="/static/css/coordinador/matches_pendientes_validacion.css"/>
+</head>
+
+<body>
+
+<!-- 1) HEADER -->
+<!--====================================================================================-->
+{% include 'comun/header.html' %}
+
+<div class="app-container">
+    <main class="contenido-principal vista-matches-validacion">
+        <div class="envoltorio-contenido">
+
+            <!-- 2) CABECERA DE VISTA -->
+            <!--====================================================================================-->
+            <header class="cabecera-vista">
+                <h2 class="titulo-seccion">Matches pendientes de validación</h2>
+                <p class="cabecera-vista__subtitulo">
+                    Revisa los intercambios creados y valida o deniega cada match.
+                </p>
+            </header>
+
+            <!-- 3) ESTADÍSITCAS -->
+            <!--====================================================================================-->
+            <section class="rejilla-estadisticas" aria-label="Resumen de matches pendientes">
+
+            </section>
+
+              <!-- 4) FILTROS -->
+            <!--====================================================================================-->
+            <section class="panel panel--padded seccion-filtros" id="contenedor-filtros"
+                     aria-label="Filtros de matches">
+            </section>
+
+
+
+            <!-- 5) TABLA -->
+            <!--====================================================================================-->
+            <section class="panel seccion-tabla-matches" aria-label="Listado">
+
+                <!-- a. Cabecera tabla -->
+                <div class="cabecera-tabla">
+                    <h3 class="cabecera-tabla__titulo">Pendientes</h3>
+                    <span class="cabecera-tabla__contador" id="contadorResultados">0 resultados</span>
+                </div>
+
+                <!-- b. Contenedor tabla -->
+                <div class="contenedor-tabla">
+                    <table class="tabla" id="tablaMatches">
+                        <thead>
+                        <tr>
+                            <th>Id Match</th>
+                            <th>Fecha match</th>
+                            <th>Emisor</th>
+                            <th>Receptor</th>
+                            <th>Intercambio</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla"></tbody>
+                    </table>
+                </div>
+                <!-- c. Estado vacío-->
+                <div id="estadoVacio" class="estado-vacio" hidden>
+                    No hay matches pendientes con los filtros actuales.
+                </div>
+            </section>
+
+            <!-- 6) PAGINACIÓN -->
+            <!--====================================================================================-->
+            <section class="panel" id="contenedor-paginacion" aria-label="Paginación"></section>
+
+        </div>
+    </main>
+</div>
+
+<!-- 7) MODALES -->
+<!--====================================================================================-->
+<!-- =========================
+     MODAL: CONFIRMAR ACCIÓN
+     ========================= -->
+<div class="modal-overlay"
+     id="modal-confirmar-match"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="modalConfirmarTitulo">
+    <div class="modal-content">
+        <header class="modal-header">
+            <h2 class="modal-titulo" id="modalConfirmarTitulo">Confirmar</h2>
+
+            <button type="button" class="btn-icono-cerrar" id="btnCerrarConfirmar" aria-label="Cerrar">
+                ✕
+            </button>
+        </header>
+
+        <div class="modal-cuerpo">
+            <p id="modalConfirmarTexto">—</p>
+        </div>
+
+        <div class="modal-acciones">
+            <button class="btn btn--secondary" type="button" id="btnCancelarConfirmar">
+                Cancelar
+            </button>
+            <button class="btn btn--primary" type="button" id="btnConfirmarAccion">
+                Confirmar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     MODAL: RESULTADO
+     ========================= -->
+<div class="modal-overlay"
+     id="modal-resultado-match"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="modalResultadoTitulo">
+    <div class="modal-content">
+        <header class="modal-header">
+            <h2 class="modal-titulo" id="modalResultadoTitulo">Resultado</h2>
+
+            <button type="button" class="btn-icono-cerrar" id="btnCerrarResultado" aria-label="Cerrar">
+                ✕
+            </button>
+        </header>
+
+        <div class="modal-cuerpo">
+            <p id="modalResultadoTexto">—</p>
+        </div>
+
+        <div class="modal-acciones">
+            <button class="btn btn--primary" type="button" id="btnOkResultado">
+                Aceptar
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- 6) NAVEGADOR -->
+<!--====================================================================================-->
+{% include 'coordinador/nav_coordinador.html' %}
+
+<script type="module" src="/static/js/coordinador/matches_pendientes_validacion.js"></script>
+</body>
+</html>

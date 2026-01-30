@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - RHiNDER</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.svg">
+    <meta name="description" content="Autenticación para el sistema de gestión de turnos RHiNDER.">
+
+    <!-- Tipografía Inter (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="/static/css/comun/comun.css">
+    <link rel="stylesheet" href="/static/css/comun/login.css">
+</head>
+
+
+<body class="pagina-login">
+
+<div class="login-layout">
+
+    <!-- 1) CONTENEDOR PRINCIPAL -->
+    <!--====================================================================================-->
+    <main class="login-contenedor">
+
+        <!-- Imagen RHiNDER-->
+        <img
+                src="/static/img/logo_horizontal.png"
+                alt="RHiNDER Logo"
+                class="login-logo"
+        >
+
+        <!-- 2) TARJETA -->
+        <!--====================================================================================-->
+        <section class="tarjeta login-tarjeta" aria-label="Formulario de autenticación">
+            <!-- a. Icono -->
+            <div class="login-icono" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            </div>
+
+            <!-- 3) FORMULARIO -->
+            <!--====================================================================================-->
+            <!-- a. Titulo formulario-->
+            <h1 class="login-titulo">AUTENTIFICACIÓN</h1>
+            <!-- b. Formulario-->
+            <form
+                    id="login-form"
+                    method="post"
+                    action="{{ url_for('login') }}"
+                    novalidate
+            >
+          <div class="mensaje-error" id="login-error-general">
+  {% if error_login %}{{ error_login }}{% endif %}
+</div>
+
+
+
+                <!-- Usuario -->
+                <div class="grupo-formulario">
+                    <label for="usuario">Nombre de Usuario</label>
+                    <input
+                            type="text"
+                            id="usuario"
+                            name="usuario"
+                            placeholder="John Doe"
+                            autocomplete="username"
+                            required
+                    >
+
+                    <div class="mensaje-error" id="usuario-error"></div>
+                </div>
+
+                <!-- Contraseña -->
+                <div class="grupo-formulario">
+                    <label for="password">Contraseña</label>
+                    <div class="login-envoltorio-password">
+                        <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="********"
+                                autocomplete="current-password"
+                                required
+                        >
+                        <!--Boton OJO -->
+                        <button
+                                type="button"
+                                id="toggle-password"
+                                class="login-boton-ojo"
+                                aria-label="Mostrar u ocultar contraseña"
+                        >
+
+                            <!-- Ojo Abierto -->
+                            <svg id="eye-open"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 width="20" height="20"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+
+                            <!-- Ojo Cerrado -->
+                            <svg id="eye-closed"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 width="20" height="20"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 style="display: none;">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                <line x1="2" y1="2" x2="22" y2="22"/>
+                            </svg>
+
+                        </button>
+                    </div>
+
+                    <!--b. Mensaje de error (si existe)-->
+                    <div class="mensaje-error" id="password-error"></div>
+
+                    <!-- c. Botones formulario-->
+                </div>
+
+                <!-- c.1 Olvido Contraseña-->
+                <button type="button" class="login-link" data-open-forgot>
+                    ¿Olvidaste tu contraseña?
+                </button>
+
+                <!--c.2 Inciar sesión-->
+                <button type="submit" class="btn btn--primary btn--lg login-boton-submit">
+                    Iniciar sesión
+                </button>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- 4) FOOTER -->
+    <!--====================================================================================-->
+    <footer class="login-footer">
+        © 2025 RHiNDER. Sistema de Gestión de RRHH
+    </footer>
+
+</div>
+
+<!-- 5) MODALES -->
+<!--====================================================================================-->
+<div
+        class="modal-overlay"
+        id="forgot-password-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="forgot-password-title"
+>
+    <div class="modal-content">
+
+        <!--MODAL 1: Recuperar Contraseña-->
+        <div id="recovery-initial-view">
+            <header class="modal-header">
+                <h2 class="modal-titulo" id="forgot-password-title">Recuperar Contraseña</h2>
+                <p class="login-modal-texto">
+                    Ingresa tu correo electrónico y te enviaremos un enlace
+                    para restablecer tu contraseña.
+                </p>
+                <button class="btn-icono-cerrar" type="button" data-close-forgot aria-label="Cerrar">
+                    ✕
+                </button>
+            </header>
+
+            <div class="grupo-formulario">
+                <label for="recovery-email">Correo electrónico</label>
+                <input
+                        type="email"
+                        id="recovery-email"
+                        name="recovery-email"
+                        placeholder="tu.correo@empresa.com"
+                        autocomplete="email"
+                        required
+                >
+                <div class="mensaje-error" id="recovery-email-error"></div>
+            </div>
+
+            <div class="modal-acciones">
+                <button class="btn btn--secondary" id="cancel-recovery-btn" type="button" data-close-forgot>
+                    Cancelar
+                </button>
+                <button class="btn btn--primary" id="send-recovery-btn" type="button">
+                    Enviar correo
+                </button>
+            </div>
+        </div>
+
+
+        <!--MODAL 2: CONFIRMAR ENVÍO-->
+        <div id="recovery-confirmation-view" class="login-confirmacion" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="24" height="24"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+
+            <h2 class="login-confirmacion-titulo">Petición enviada</h2>
+            <p class="login-confirmacion-texto">
+                Si este correo está registrado, recibirás un enlace para
+                restablecer tu contraseña en breve.
+            </p>
+
+            <div class="modal-acciones login-confirmacion-acciones">
+                <button class="btn btn--primary" id="close-confirmation-btn" type="button" data-close-forgot>
+                    Entendido
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="module" src="/static/js/comun/login.js"></script>
+</body>
+</html>

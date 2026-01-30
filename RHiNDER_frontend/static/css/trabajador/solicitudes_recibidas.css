@@ -1,0 +1,112 @@
+/* =========================================================
+   01) AJUSTES DE CONTENEDOR
+   ========================================================= */
+
+.vista-solicitudes-recibidas .envoltorio-contenido {
+  max-width: 1120px;
+}
+
+
+/* =========================================================
+   02) ALIAS TEMPORALES (para migración sin romper)
+   - Si ya migraste HTML/JS a las clases comunes, puedes borrar esto.
+   ========================================================= */
+
+/* Si tu JS aún inyecta filtros en .filtros-solicitudes, lo hacemos “parecido” al común */
+.filtros-solicitudes {
+  margin-bottom: 1.5rem; /* igual que .seccion-filtros */
+}
+
+/* Si tu JS aún genera rejilla con .filtros-solicitudes__rejilla */
+.filtros-solicitudes__rejilla {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr auto; /* igual que .rejilla-filtros */
+  gap: 1rem;
+  align-items: end;
+}
+
+/* Si tu HTML/JS usa .grupo-formulario en vez de .grupo-filtro */
+.filtros-solicitudes .grupo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Si tus labels no llevan .etiqueta-filtro */
+.filtros-solicitudes .grupo-formulario label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario);
+}
+
+
+/* =========================================================
+   03) TABLA: AJUSTES ESPECÍFICOS (opcionales)
+   ========================================================= */
+
+/* Si quieres que la columna “Emisor” no se rompa en una sola línea */
+.celda-emisor {
+  white-space: nowrap;
+  font-weight: 700;
+  color: var(--color-texto-principal);
+}
+
+/* Si muestras usuario + avatar (opcional) */
+.emisor {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emisor__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e0edff;
+  color: #2563eb;
+  font-weight: 900;
+  font-size: 0.85rem;
+
+  flex: 0 0 auto;
+}
+
+.emisor__nombre {
+  font-weight: 800;
+  color: var(--color-texto-principal);
+}
+
+
+/* =========================================================
+   04) PANEL TABLA (solo si quieres “overflow hidden”)
+   - El sistema común ya gestiona el scroll en .contenedor-tabla
+   ========================================================= */
+
+.seccion-tabla-solicitudes {
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   08) MEDIA QUERIES (RESPONSIVE) — AL FINAL
+   ========================================================= */
+
+/* ---------- <= 1024px ---------- */
+@media (max-width: 1024px) {
+  .filtros-solicitudes__rejilla {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- <= 768px ---------- */
+@media (max-width: 768px) {
+  .cabecera-tabla {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

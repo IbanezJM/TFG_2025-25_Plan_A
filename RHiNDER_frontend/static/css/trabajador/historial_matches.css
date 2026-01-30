@@ -1,0 +1,57 @@
+
+/* =========================================================
+   01) AJUSTES DE CONTENEDOR
+   ========================================================= */
+
+.vista-historial-matches .envoltorio-contenido {
+  max-width: 1120px;
+}
+
+
+/* =========================================================
+   02) INTERCAMBIO (bloque especial)
+   ========================================================= */
+
+.celda-intercambio {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.intercambio-bloque {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.intercambio-fecha {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-texto-secundario);
+  white-space: nowrap;
+}
+
+.intercambio-flecha {
+  font-weight: 900;
+  color: #10b981;
+}
+
+
+/* =========================================================
+   07) MEDIA QUERIES
+   ========================================================= */
+
+/* ---------- > 1024px ---------- */
+@media (min-width: 1025px) {
+  td[data-etiqueta="Intercambio"] .celda-intercambio {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ---------- <= 1024px ---------- */
+@media (max-width: 1024px) {
+  td[data-etiqueta="Intercambio"] .celda-intercambio {
+    flex-wrap: wrap;
+  }
+}

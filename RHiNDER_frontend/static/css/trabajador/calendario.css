@@ -1,0 +1,407 @@
+
+/* =========================================================
+   01) AJUSTES DE CONTENEDOR (ALTURA VISIBLE SIN SCROLL)
+   ========================================================= */
+
+.vista-calendario .envoltorio-contenido {
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    flex-direction: column;
+    gap: 12px;
+
+
+    max-width: 700px;
+    /* 100vh = alto de pantalla. Restamos header + nav inferiores (fijos del común) */
+    min-height: calc(100vh - var(--header-height) - var(--nav-height)); /* intenta evitar scroll */
+
+
+}
+
+
+/* =========================================================
+   02) NAVEGACIÓN DEL CALENDARIO
+   ========================================================= */
+
+.calendario-navegacion {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Tres columnas: botón / mes centrado / botón */
+    align-items: center;
+
+    justify-content: space-between;
+    gap: 12px; /* Espacio entre elementos */
+
+    padding: 16px 20px; /* Relleno */
+    margin-bottom: 10px;
+
+    border-radius: var(--radio-borde);
+    background: var(--color-tarjeta);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra suave */
+}
+
+.calendario-mes-actual {
+
+    text-align: center; /* Mes centrado */
+    text-transform: capitalize; /* Primera letra en mayúscula */
+
+    font-size: 1.25rem;
+    font-weight: 700; /* Negrita */
+    color: var(--color-texto-principal); /* Color principal */
+}
+
+.calendario-boton-nav {
+    display: inline-flex; /* Centra icono */
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: var(--color-fondo); /* Fondo gris */
+    color: var(--color-texto-principal); /* Icono */
+
+    cursor: pointer; /* Mano */
+    transition: background-color 0.2s, color 0.2s, transform 0.06s; /* Suave */
+}
+
+.calendario-boton-nav:active {
+    transform: translateY(1px); /* Feedback */
+}
+
+.calendario-boton-nav:hover {
+    background: var(--color-primario);
+    color: #ffffff; /* Icono blanco */
+}
+/* Botón desactivado */
+.btn--disabled,
+button:disabled {
+    opacity: 0.45;              /* Se ve apagado */
+    cursor: not-allowed;        /* Cursor de prohibido */
+    background-color: #e5e7eb;  /* Gris claro */
+    color: #9ca3af;             /* Texto gris */
+    box-shadow: none;           /* Sin sombra */
+}
+
+
+/* =========================================================
+   03) PANEL DEL CALENDARIO (TARJETA PRINCIPAL)
+   ========================================================= */
+
+.calendario-panel {
+
+    display: flex; /* Permite que el grid se estire */
+    flex-direction: column; /* Grid dentro en columna */
+
+    padding: 16px;
+    margin-bottom: 10px;
+
+    border-radius: var(--radio-borde);
+    background: var(--color-tarjeta);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra */
+
+}
+
+
+/* =========================================================
+   04) CUADRÍCULA + CABECERA DÍAS (FIX OVERFLOW + ALTO ADAPTABLE)
+   ========================================================= */
+
+.calendario-cuadricula {
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 días de la semana */
+    gap: 2px;
+
+    /* ✅ Alto de filas adaptable: mantiene el calendario dentro de pantalla */
+    /* min: 34px, ideal: 7vh (depende altura pantalla), max: 72px */
+    grid-auto-rows: 6vh;
+}
+
+.calendario-cabecera-dia {
+    padding: 6px 2px;
+    text-align: center;
+
+    font-size: 0.8rem;
+    font-weight: 600; /* Semi-negrita */
+    color: var(--color-texto-secundario);
+
+    min-width: 0;
+    overflow: hidden; /* Evita empuje */
+}
+
+
+/* =========================================================
+   05) CELDAS DE DÍA (ESTADOS)
+   ========================================================= */
+
+.calendario-dia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+
+    aspect-ratio: auto; /* para no forzar la proporción del elemento y dejar que el layout (Grid) controle su tamaño */
+
+    padding: 4px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: var(--color-tarjeta);
+
+    cursor: pointer; /* Clicable */
+    transition: background-color 0.2s, border-color 0.2s, transform 0.06s; /* Suave */
+
+    min-width: 0; /* Fix overflow */
+    overflow: hidden; /* Oculta exceso */
+
+    text-align: center;
+}
+
+.calendario-dia:active {
+    transform: translateY(1px); /* Feedback click */
+}
+
+.calendario-dia:hover:not(.calendario-dia--otro-mes):not(.calendario-dia--deshabilitado) {
+    background: var(--color-fondo); /* Hover suave */
+}
+
+.calendario-dia--otro-mes {
+    opacity: 0; /* Oculta */
+    pointer-events: none; /* No clic */
+}
+
+.calendario-dia--deshabilitado {
+    opacity: 0.5; /* Apagado */
+    cursor: not-allowed; /* Prohibido */
+}
+
+.calendario-dia--hoy {
+    border-color: var(--color-primario); /* Marca hoy */
+}
+
+.calendario-numero-dia {
+    font-size: 0.95rem; /* Un poco más pequeño */
+    font-weight: 600; /* Negrita */
+    color: var(--color-texto-principal);
+
+    min-width: 0; /* Fix */
+    text-align: center; /* Centrado */
+}
+
+.calendario-dia--solicitud-enviada {
+    background: #eff6ff;      /* blue-50 */
+    border-color: #2563eb;    /* blue-600 */
+}
+
+.calendario-dia--solicitud-enviada:hover {
+    background: #dbeafe;      /* blue-100 */
+}
+
+
+
+.calendario-dia--solicitud-denegada {
+    background: #fee2e2;              /* Rojo claro */
+    border-color: #ef4444;            /* Rojo */
+}
+
+.calendario-dia--solicitud-denegada:hover {
+    background: #fecaca;              /* Rojo un poco más fuerte */
+}
+
+
+.calendario-dia--solicitud-aceptada {
+    background: #dcfce7;              /* Verde claro */
+    border-color: #22c55e;            /* Verde */
+}
+
+.calendario-dia--solicitud-aceptada:hover {
+    background: #bbf7d0;              /* Verde un poco más fuerte */
+}
+
+
+
+/* =========================================================
+   06) BADGE DEL TURNO + COLORES (CLAMP)
+   ========================================================= */
+
+.calendario-badge-turno {
+
+    width: 2.2em;
+    height: 2.2em;
+    margin: 0 auto;
+
+    border-radius: 50%; /* Circular */
+
+    display: inline-flex; /* Centra letra */
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0.9em;
+    font-weight: 700; /* Negrita */
+
+    flex-shrink: 1; /* Permite encoger */
+}
+
+/* Colores por tipo de turno */
+.calendario-turno--M {
+    background: #e0edff;
+    color: #2563eb;
+}
+
+/* Mañana */
+.calendario-turno--L {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* Tarde */
+.calendario-turno--N {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+/* Noche */
+.calendario-turno--T {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+/* Libre */
+.calendario-turno--barra {
+    background: #e5e7eb;
+    color: #6b7280;
+}
+
+/* “/” */
+
+
+/* =========================================================
+   07) LEYENDA DE TURNOS (UNA SOLA FILA)
+   ========================================================= */
+
+.leyenda-turnos {
+    padding: 12px 14px;
+    border-radius: var(--radio-borde);
+    background: var(--color-tarjeta);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra */
+}
+
+.leyenda-turnos__titulo {
+    margin: 0 0 8px 0;
+    font-size: 1.05rem;
+    font-weight: 700; /* Negrita */
+    color: var(--color-texto-principal); /* Principal */
+}
+
+.leyenda-turnos__items {
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: nowrap; /* 🔒 Una sola fila */
+}
+
+.leyenda-turnos__item {
+    display: inline-flex; /* Badge + texto */
+    align-items: center;
+    gap: 6px;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-texto-principal);
+
+    white-space: nowrap; /* No rompe */
+    flex: 0 1 auto; /* = flex-grow: 0; no crece aunque haya espacio
+                         flex-shrink: 1;Puede encoger un poco
+                         flex-basis: auto;  tamaño marcado pro height y width */
+}
+
+.leyenda-turnos__badge {
+    width: 30px; /* Compacto */
+    height: 30px;
+    border-radius: 50%;
+
+    display: inline-flex; /* Centrado */
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    flex-shrink: 0; /* No se encoge */
+}
+
+
+/* =========================================================
+   08) MEDIA QUERIES
+   ========================================================= */
+
+
+/* ---------- <= 1440px ---------- */
+@media (max-width: 1440px) {
+    /* (Opcional) Ajustes leves para pantallas grandes */
+    /* .contenido-principal { max-width: 1200px; } */
+}
+
+
+/* ---------- <= 1280px ---------- */
+@media (max-width: 1280px) {
+    /* (Opcional) Reduce padding del header en laptops */
+    /* .cabecera-principal { padding: 0 1.5rem; } */
+}
+
+
+/* ---------- <= 1024px ---------- */
+@media (max-width: 1024px) {
+    /* (Opcional) Ajustes de espaciados generales */
+    /* .contenido-principal { padding: 1.25rem 1rem; } */
+}
+
+
+/* ---------- <= 900px (opcional) ---------- */
+@media (max-width: 900px) {
+    /* (Opcional) Punto intermedio si notas “saltos” */
+}
+
+
+/* ---------- <= 768px ---------- */
+@media (max-width: 768px) {
+    .calendario-panel,
+    .leyenda-turnos {
+        padding: 16px; /* Un poco más cómodo en tablet */
+    }
+
+    .calendario-cuadricula {
+        gap: 2px;
+        grid-auto-rows: clamp(34px, 7vh, 72px); /* Mantiene el sistema */
+    }
+
+    .calendario-cabecera-dia {
+        font-size: 0.75rem;
+        padding: 10px 2px;
+    }
+
+    .calendario-dia {
+        padding: 6px;
+        gap: 6px;
+    }
+}
+
+/* Móvil estándar */
+@media (max-width: 480px) {
+    .calendario-panel,
+    .leyenda-turnos {
+        padding: 12px;
+    }
+
+    .calendario-cuadricula {
+        gap: 1px;
+    }
+
+    .calendario-dia {
+        padding: 4px;
+        gap: 4px;
+    }
+}

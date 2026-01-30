@@ -1,0 +1,51 @@
+/* =========================================================
+   01) AJUSTES DE CONTENEDOR DE LA VISTA
+   ========================================================= */
+.vista-matches-validacion .envoltorio-contenido {
+  max-width: 1120px;
+}
+
+.contenedor-tabla {
+  overflow-x: auto;
+}
+
+
+/* =========================================================
+   02) INTERCAMBIO DE TURNOS (BLOQUE REUTILIZADO)
+   ========================================================= */
+.celda-intercambio {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.intercambio-bloque {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.intercambio-fecha {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-texto-secundario);
+  white-space: nowrap;
+}
+
+
+.intercambio-flecha {
+  font-weight: 900;
+  color: #10b981;
+}
+
+
+/* =========================================================
+   03) ACCIONES DE VALIDACIÓN
+   ========================================================= */
+.celda-acciones {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

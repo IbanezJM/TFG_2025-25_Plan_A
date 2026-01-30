@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>{{ titulo }}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.svg">
+
+    <link rel="stylesheet" href="/static/css/comun/comun.css"/>
+    <link rel="stylesheet" href="/static/css/trabajador/solicitudes_enviadas.css"/>
+</head>
+
+<body>
+
+<!-- 1) HEADER -->
+<!--====================================================================================-->
+{% include 'comun/header.html' %}
+
+<div class="app-container">
+
+    <main class="contenido-principal vista-solicitudes-enviadas">
+
+        <div class="envoltorio-contenido">
+
+            <!-- 2) CABECERA DE VISTA -->
+            <!--====================================================================================-->
+            <header class="cabecera-vista">
+                <h2 class="titulo-seccion">Solicitudes enviadas</h2>
+                <p class="cabecera-vista__subtitulo">
+                    Consulta y gestiona tus solicitudes de cambio de turno.
+                </p>
+            </header>
+
+            <!-- 3) ESTADÍSITCAS -->
+            <!--====================================================================================-->
+            <section class="seccion-estadisticas" aria-label="Resumen de solicitudes enviadas">
+                <h2 class="titulo-seccion">Resumen</h2>
+                <div class="rejilla-estadisticas">
+                </div>
+            </section>
+
+            <!-- 4) FILTROS -->
+            <!--====================================================================================-->
+            <section class="panel panel--padded seccion-filtros" id="contenedor-filtros"
+                     aria-label="Filtros de solicitudes">
+            </section>
+
+            <!-- 5) TABLA -->
+            <!--====================================================================================-->
+            <section class="panel seccion-tabla-solicitudes" id="panel-seccion-tabla"
+                     aria-label="Listado de solicitudes">
+
+                <!-- a. Cabecera tabla -->
+                <div class="cabecera-tabla">
+                    <h3 class="cabecera-tabla__titulo">Mis solicitudes</h3>
+                    <span class="cabecera-tabla__contador" id="contadorResultados">0 resultados</span>
+                </div>
+
+                <!-- b. Contenedor tabla -->
+                <div class="contenedor-tabla">
+                    <table class=" tabla" id="tablaSolicitudes">
+                        <thead>
+                        <tr>
+                            <th>Id Solicitud</th>
+                            <th>Turno ofrecido</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla"></tbody>
+                    </table>
+                </div>
+
+                <!-- c. Estado vacío-->
+                <div id="estadoVacio" class="estado-vacio">
+                    No hay solicitudes con los filtros actuales.
+                </div>
+
+            </section>
+
+
+            <!-- 6) PAGINACIÓN -->
+            <!--====================================================================================-->
+            <section class="panel " id="contenedor-paginacion" aria-label="paginacion">
+
+            </section>
+
+            <!-- 7) MODALES -->
+            <!--====================================================================================-->
+
+            <!-- =========================
+             MODAL 1: RESPUESTAS
+            ========================= -->
+            <div class="modal-overlay" id="modal-respuestas" hidden>
+
+                <div class="modal-content modal-lg" role="dialog" aria-modal="true"
+                     aria-labelledby="modalRespuestasTitulo">
+                    <div class="modal-header">
+                        <h2 id="modalRespuestasTitulo">Respuestas de compañeros</h2>
+                    </div>
+
+                    <div id="contenedorRespuestas" class="lista-respuestas"></div>
+
+                    <div class="modal-acciones">
+                        <button class="btn btn--secondary" id="btn-cerrar-respuestas" type="button"
+                                data-close-modal="modal-respuestas"> Volver
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+             MODAL 2: CONFIRMAR
+             ========================= -->
+            <div class="modal-overlay" id="modal-confirmar" hidden>
+                <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="titulo-confirmar">
+                    <header class="modal-header">
+                        <h2 id="titulo-confirmar">Confirmar</h2>
+                        <p id="confirm-summary">—</p>
+                    </header>
+
+                    <div class="modal-acciones">
+                        <button class="btn btn--secondary" id="btn-cerrar-confirmar" type="button"
+                                data-close-modal="modal-confirmar">
+                            Volver
+                        </button>
+                        <button class="btn btn--primary" type="button" id="btn-confirmar-confirmar">
+                            Confirmar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- =========================
+                 MODAL 3: ÉXITO / ERROR
+                 ========================= -->
+            <div class="modal-overlay" id="modal-exito" hidden>
+                <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="titulo-exito">
+                    <header class="modal-header">
+                        <h2 id="titulo-exito">—</h2>
+                    </header>
+
+                    <div class="modal-acciones">
+                        <button class="btn btn--primary" id="btn-exito-volver" type="button"
+                                data-close-modal="modal-exito">
+                            Volver
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+</div>
+
+<!-- 8) NAVEGADOR -->
+<!--====================================================================================-->
+{% include 'trabajador/nav_trabajador.html' %}
+
+<script type="module" src="/static/js/trabajador/solicitudes_enviadas.js"></script>
+</body>
+</html>

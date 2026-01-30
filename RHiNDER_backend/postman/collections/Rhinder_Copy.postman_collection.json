@@ -1,0 +1,322 @@
+{
+  "info": {
+    "_postman_id": "9f2c5c55-b4aa-4841-bf55-9ccb98dace8b",
+    "name": "Rhinder Copy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Calendario_Turnos",
+      "item": [
+        {
+          "name": "Calendario_Turnos",
+          "id": "655aae9b-c24f-4a60-adcc-01b75ace81ff",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NTQ0Mzg1MywianRpIjoiNWJmYjkyNzgtZmZlMS00OTJmLTg0YjctMjI1OGUzYmMwN2JiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjU0NDM4NTMsImNzcmYiOiIyMzMwZjJmNy1jMDI2LTRkY2MtOTg0Yy03MDIwMjEwYWQ1M2EiLCJleHAiOjE3NjU0NDQ3NTN9.rn3CVNoaWz8wRceoJEKprhy_7cMuLK5iXq8qjsa7D2Y",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5001/turnos?year=2025&month=11",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5001",
+              "path": [
+                "turnos"
+              ],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2025"
+                },
+                {
+                  "key": "month",
+                  "value": "11"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "5e27494f-6cce-4869-aa46-3a919b3e8c4e"
+    },
+    {
+      "name": "Solicitudes_Enviadas",
+      "item": [
+        {
+          "name": "Solicitudes_activas",
+          "id": "a7718d8b-d8d4-4a4c-9719-df0d3b002005",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NTIwOTMyNCwianRpIjoiMDc2ZTFhZjktYWVhMS00MDdjLWExMmQtYjU0ZTQ0ZTM4ODRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjUyMDkzMjQsImNzcmYiOiI4YzhiZTVkZi0xZWFjLTQyMTQtYjg5Ni02NDFhYWU1OGJmYzIiLCJleHAiOjE3NjUyMTAyMjR9.aqR464tLJXM-4FgQmPLItLdlVVyKWGL1aACjFXlAXu4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5001/solicitud",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5001",
+              "path": [
+                "solicitud"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Solicitud_crear",
+          "id": "dc144544-b2cf-4d12-885c-d02a22797d68",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5001/solicitud",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5001",
+              "path": [
+                "solicitud"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Solicitud_cancelar",
+          "id": "1c4284cd-be6e-48d3-855d-851d8a70d715",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDUwMjA2MCwianRpIjoiYjcxNWUxNzktOWI4Zi00Y2IxLTliNzItMDQ4MDgwOTIzMjllIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjQ1MDIwNjAsImNzcmYiOiI5NDYwYTYxZS1kYmNkLTRiNzktOTU3ZS0zYWZkZTNjZGI3YmEiLCJleHAiOjE3NjQ1MDI5NjB9.FH8snZ_-9W1KM_knAg8IAfP3o67r3BITRX-cSN1W1uY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5001/solicitud/cancelar/1",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5001",
+              "path": [
+                "solicitud",
+                "cancelar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "ab1361f3-c381-4e2e-8660-7cbf1b202e36"
+    },
+    {
+      "name": "Respuestas",
+      "item": [
+        {
+          "name": "Respuestas",
+          "id": "aaaabe34-0325-4e66-9013-6372129b6fcd",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "fff96df1-bc67-4e9a-8372-1fe82854a2d4"
+    },
+    {
+      "name": "Solicitudes_Recibidas",
+      "item": [
+        {
+          "name": "Solicitudes_Recibidas",
+          "id": "7a34305e-5092-4740-bbea-7699c43ee6ac",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Solicitudes_Nuevas_Recibidas",
+          "id": "2b2d96af-5348-41eb-a871-5bcb8efdca1b",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NTUzNjY3NiwianRpIjoiNTI4ZjEwNTQtYzc2ZC00YzcyLTg2MDEtNWIwMWZjNWEyNDk3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjU1MzY2NzYsImNzcmYiOiJjNTk2ZmQ1Mi0xZDYyLTQ5ZDktODc3NS0zMWRmNjRhMDM3MTgiLCJleHAiOjE3NjU1Mzc1NzZ9.fb3JFyOFEkR126hok11SIz8T3WybXGQrC8fT-GGhMtY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5001/solicitudes-recibidas/vista/1",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5001",
+              "path": [
+                "solicitudes-recibidas",
+                "vista",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Solicitudes_Nuevas_Vistas",
+          "id": "cc398d74-d01e-4bd3-be18-b8648981990f",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NTUzNjY3NiwianRpIjoiNTI4ZjEwNTQtYzc2ZC00YzcyLTg2MDEtNWIwMWZjNWEyNDk3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjU1MzY2NzYsImNzcmYiOiJjNTk2ZmQ1Mi0xZDYyLTQ5ZDktODc3NS0zMWRmNjRhMDM3MTgiLCJleHAiOjE3NjU1Mzc1NzZ9.fb3JFyOFEkR126hok11SIz8T3WybXGQrC8fT-GGhMtY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5001/solicitudes-recibidas/vistas/1",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5001",
+              "path": [
+                "solicitudes-recibidas",
+                "vistas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "e19daeee-1411-4a6e-a815-6847b554a4da"
+    },
+    {
+      "name": "Matches",
+      "item": [
+        {
+          "name": "Matches",
+          "id": "2a564029-834b-4f6b-9e90-4fe017a3cecc",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "4497b40c-d65f-45e1-ac13-ef5d76c49a3d"
+    },
+    {
+      "name": "Validaciones",
+      "item": [],
+      "id": "cea2fec0-f4ae-46b1-959d-74b90d7ac644"
+    },
+    {
+      "name": "Login",
+      "id": "d7202640-5e2c-48ca-846c-b4a3c5ff8145",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"usuario\":\"trabajador01\",\r\n    \"password\":\"1111\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5001/login",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5001",
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

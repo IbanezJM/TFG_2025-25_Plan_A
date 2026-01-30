@@ -1,0 +1,226 @@
+
+/* =========================================================
+   01) AJUSTES DE CONTENEDOR
+   ========================================================= */
+
+.vista-solicitudes-enviadas .envoltorio-contenido {
+  max-width: 1120px; /* más ancho porque hay tabla */
+}
+
+
+/* =========================================================
+   02) FILTROS (SOLO LAYOUT)
+   ========================================================= */
+
+.filtros-solicitudes {
+  margin: 1rem 0 1.25rem;
+}
+
+.filtros-solicitudes__rejilla {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+/* Si tu HTML/JS usa .grupo-formulario como en matches */
+.filtros-solicitudes .grupo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.filtros-solicitudes .grupo-formulario label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario);
+}
+
+
+/* =========================================================
+   03) TABLA (ESTRUCTURA)
+   ========================================================= */
+
+.tabla-solicitudes th,
+.tabla-solicitudes td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid #eef2f7;
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+/* =========================================================
+   04) CELDAS ESPECIALES (TURNO / ACCIONES)
+   ========================================================= */
+
+/* Turno: badge + nombre */
+.celda-turno {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Acciones */
+.celda-acciones,
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   06) MODAL RESPUESTAS (CONTENIDO ESPECÍFICO)
+   - Estructura del modal la pone comun.css (.modal-overlay, .modal-content...)
+   ========================================================= */
+
+.lista-respuestas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 0.75rem;
+}
+
+.tarjeta-respuesta {
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: #f9fafb;
+}
+
+/* Cabecera tarjeta respuesta: avatar + nombre + info + acciones */
+.info-respuesta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.info-trabajador {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.avatar-respuesta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+
+  background: #e0edff;
+  color: #2563eb;
+
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.nombre-respuesta {
+  font-weight: 600;
+  color: #111827;
+}
+
+.turno-respuesta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #6b7280;
+  font-size: 0.9rem;
+
+  flex: 1;      /* ocupa el espacio central */
+  min-width: 0; /* evita overflow */
+}
+
+
+
+/* =========================================================
+   07) MEDIA QUERIES
+   ========================================================= */
+
+/* ---------- <= 1024px ---------- */
+@media (max-width: 1024px) {
+
+  .filtros-solicitudes__rejilla {
+    grid-template-columns: 1fr;
+  }
+
+  .tabla-solicitudes {
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .tabla-solicitudes thead {
+    display: none;
+  }
+
+  .tabla-solicitudes tbody {
+    display: block;
+  }
+
+  .tabla-solicitudes tr {
+    display: block;
+    margin: 12px;
+
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+    overflow: hidden;
+  }
+
+  .tabla-solicitudes td {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    padding: 12px 14px;
+    border-top: 1px solid #eef2f7;
+  }
+
+  .tabla-solicitudes td:first-child {
+    border-top: none;
+  }
+
+  .tabla-solicitudes td::before {
+    content: attr(data-etiqueta);
+
+    font-weight: 900;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+
+    flex: 0 0 45%;
+    max-width: 45%;
+  }
+
+  /* Contenido a la derecha */
+  .tabla-solicitudes td > * {
+    margin-left: auto;
+  }
+
+  /* Turno y acciones alineadas a la derecha */
+  .celda-turno,
+  .celda-acciones,
+  .actions-cell {
+    justify-content: flex-end;
+  }
+}
+
+
+
+/* ---------- <= 768px ---------- */
+@media (max-width: 768px) {
+  .cabecera-tabla {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

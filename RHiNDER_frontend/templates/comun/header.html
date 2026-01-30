@@ -1,0 +1,35 @@
+<header class="cabecera-principal">
+    <!-- a. Imagen header -->
+    <img
+            src="/static/img/logo_horizontal.png"
+            alt="RHiNDER Logo"
+            class="logo-cabecera"
+    >
+
+    <!-- b. Titulo header -->
+    <h1 class="titulo-pagina" id="page-title">{{ titulo }}</h1>
+
+    <!-- c. Nombre e icono perfil -->
+    <div class="nombre-icono">
+        <!-- c1. Nombre -->
+        <p>{{ username }}</p>
+
+        <!-- c.2 Icono -->
+        <a href="{{ url_for('perfil') }}" class="icono-perfil" aria-label="Abrir mi perfil">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </a>
+    </div>
+
+</header>
+
+<!-- Script de control de inactividad -->
+<script src="/static/js/comun/sesion_inactividad.js" defer></script>

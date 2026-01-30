@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>{{ titulo }}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.svg">
+
+    <!-- CSS común (base) -->
+    <link rel="stylesheet" href="/static/css/comun/comun.css"/>
+
+    <!-- CSS específico de esta vista -->
+    <link rel="stylesheet" href="/static/css/trabajador/historial_matches.css"/>
+</head>
+
+<body>
+
+<!-- 1) HEADER -->
+<!--====================================================================================-->
+{% include 'comun/header.html' %}
+
+<div class="app-container">
+    <main class="contenido-principal vista-historial-matches">
+        <div class="envoltorio-contenido">
+
+            <!-- 2) CABECERA DE VISTA -->
+            <!--====================================================================================-->
+            <header class="cabecera-vista">
+                <h2 class="titulo-seccion">Historial de matches</h2>
+                <p class="cabecera-vista__subtitulo">
+                    Consulta la evolución y cambios de estado de los matches creados por ti.
+                </p>
+            </header>
+
+            <!-- 3) ESTADÍSITCAS -->
+            <!--====================================================================================-->
+            <section class="rejilla-estadisticas" aria-label="Resumen de matches">
+
+            </section>
+
+            <!-- 4) FILTROS -->
+            <!--====================================================================================-->
+            <section class="panel panel--padded seccion-filtros" id="contenedor-filtros"
+                     aria-label="Filtros de matches">
+            </section>
+
+
+            <!-- 5) TABLA -->
+            <!--====================================================================================-->
+            <section class="panel seccion-tabla-matches" aria-label="Listado de historial de matches">
+                <!-- a. Cabecera tabla -->
+                <div class="cabecera-tabla">
+                    <h3 class="cabecera-tabla__titulo">Mis matches</h3>
+                    <span class="cabecera-tabla__contador" id="contadorResultados">0 resultados</span>
+                </div>
+
+                <!-- b. Contenedor tabla -->
+                <div class="contenedor-tabla">
+                    <table class="tabla" id="tablaMatches">
+                        <thead>
+                        <tr>
+                            <th>Id Match</th>
+                            <th>Fecha match</th>
+                            <th>Intercambio</th>
+                            <th>Receptor</th>
+                            <th>Estado</th>
+                            <th>Último cambio</th>
+                        </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla"></tbody>
+                    </table>
+                </div>
+
+                <!-- c. Estado vacío-->
+                <div id="estadoVacio" class="estado-vacio">
+                    No hay matches con los filtros actuales.
+                </div>
+
+            </section>
+
+            <!-- 6) PAGINACIÓN -->
+            <!--====================================================================================-->
+            <section class="panel " id="contenedor-paginacion" aria-label="paginacion">
+
+            </section>
+
+
+        </div>
+    </main>
+</div>
+
+<!-- 7) NAVEGADOR -->
+<!--====================================================================================-->
+{% include 'trabajador/nav_trabajador.html' %}
+
+<script type="module" src="/static/js/trabajador/historial_matches.js"></script>
+</body>
+</html>

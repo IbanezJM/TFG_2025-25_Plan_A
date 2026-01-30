@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ titulo }}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.svg">
+
+    <link rel="stylesheet" href="/static/css/comun/comun.css"/>
+    <link rel="stylesheet" href="/static/css/comun/panel.css"/>
+    <link rel="stylesheet" href="/static/css/administrador/panel_administrador.css"/>
+</head>
+
+<body>
+
+<!-- 1) HEADER -->
+<!--====================================================================================-->
+{% include 'comun/header.html' %}
+
+<main class="contenido-principal vista-panel-administrador">
+    <div class="envoltorio-contenido">
+
+        <!-- 2) CABECERA DE VISTA -->
+        <!--====================================================================================-->
+        <header class="cabecera-vista">
+            <h1 class="titulo-seccion">Panel de administrador</h1>
+            <p class="cabecera-vista__subtitulo">
+                Gestión de usuarios: listar, buscar y bloquear/desbloquear.
+            </p>
+            <p class="texto-fecha" id="fecha-actual"></p>
+        </header>
+
+        <!-- 3) ESTADÍSITCAS -->
+        <!--====================================================================================-->
+        <section id="rejilla-estadisticas" class="rejilla-estadisticas" aria-label="Resumen de usuarios"></section>
+
+        <!-- 4) FILTROS -->
+        <!--====================================================================================-->
+        <section class="panel panel--padded seccion-filtros" aria-label="Filtros de usuarios">
+            <div id="contenedor-filtros"></div>
+        </section>
+
+        <!-- 5) TABLA -->
+        <!--====================================================================================-->
+        <section class="panel seccion-tabla-matches" aria-label="Listado de usuarios">
+
+            <!-- a. Cabecera tabla -->
+            <header class="cabecera-tabla">
+                <h2 class="cabecera-tabla__titulo">Usuarios</h2>
+                <p class="cabecera-tabla__contador" id="contadorResultados">—</p>
+            </header>
+
+            <!-- b. Contenedor tabla -->
+            <div class="contenedor-tabla">
+                <table class="tabla tabla--usuarios" aria-label="Tabla de usuarios">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th class="col-acciones">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla"></tbody>
+                </table>
+            </div>
+
+            <!-- c. Estado vacío-->
+            <div id="estadoVacio" class="estado-vacio" hidden>
+                No hay usuarios con los filtros actuales.
+            </div>
+        </section>
+
+        <!-- 6) PAGINACIÓN -->
+        <!--====================================================================================-->
+        <section class="panel" id="contenedor-paginacion" aria-label="Paginación"></section>
+
+    </div>
+</main>
+
+<!-- 6) NAVEGADOR -->
+<!--====================================================================================-->
+{% include 'administrador/nav_administrador.html' %}
+
+<script type="module" src="/static/js/administrador/panel_administrador.js"></script>
+</body>
+</html>

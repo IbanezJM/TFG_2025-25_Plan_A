@@ -1,0 +1,263 @@
+/* =========================================================
+   01) RESET DE LAYOUT PARA LOGIN
+   ========================================================= */
+
+body.pagina-login {
+  padding-top: 0;                    /* Anula espacio del header del CSS común */
+  padding-bottom: 0;                 /* Anula espacio del nav inferior del CSS común */
+  min-height: 100vh;                 /* Altura completa de pantalla */
+}
+
+
+/* =========================================================
+   02) ESTRUCTURA PRINCIPAL
+   ========================================================= */
+
+.pagina-login .login-layout {
+  min-height: 100vh;                 /* Ocupa toda la pantalla */
+  display: flex;                     /* Permite colocar main + footer en columna */
+  flex-direction: column;
+  background: var(--color-fondo);    /* Mismo fondo que el resto del sistema */
+}
+
+.pagina-login .login-contenedor {
+  width: 100%;
+  max-width: 520px;                  /* Ancho máximo para que se vea “tarjeta” */
+  margin: 0 auto;                    /* Centra horizontalmente */
+  padding: 2.5rem 1rem 1.25rem;      /* Espaciado general */
+  flex: 1;                           /* Empuja el footer hacia abajo */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;           /* Centra verticalmente */
+}
+
+
+/* =========================================================
+   03) LOGO + TARJETA + ICONO
+   ========================================================= */
+
+.pagina-login .login-logo {
+  display: block;
+  width: 100%;
+  max-width: 320px;                  /* Tamaño del logo */
+  height: auto;
+  margin: 0 auto 1.25rem;            /* Centrado + separación inferior */
+}
+
+/* Reutiliza .tarjeta del común y añade padding propio */
+.pagina-login .login-tarjeta {
+  padding: 2rem;                     /* Relleno interno de la tarjeta */
+}
+
+/* Icono decorativo superior */
+.pagina-login .login-icono {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  margin: 0 auto 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(79, 70, 229, 0.12);  /* Alternativa simple a color-mix */
+  color: var(--color-primario);
+}
+
+.pagina-login .login-icono svg {
+  width: 28px;
+  height: 28px;
+}
+
+.pagina-login .login-titulo {
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--color-texto-principal);
+}
+
+
+/* =========================================================
+   04) FORMULARIO (LABELS + INPUTS + ERRORES)
+   ========================================================= */
+
+.pagina-login .grupo-formulario {
+  margin-bottom: 1.1rem;
+}
+
+.pagina-login .grupo-formulario label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-texto-principal);
+}
+
+.pagina-login .grupo-formulario input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: #fff;
+  color: var(--color-texto-principal);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pagina-login .grupo-formulario input:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+/* Error: contenedor de texto */
+.pagina-login .mensaje-error {
+  display: none;                     /* Por defecto oculto */
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-error);
+}
+
+/* Error: input con borde rojo */
+.pagina-login input.error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}
+
+#login-error-general:empty { display: none; }
+
+
+/* =========================================================
+   05) PASSWORD (ENVOLTORIO + BOTÓN OJO)
+   ========================================================= */
+
+.pagina-login .login-envoltorio-password {
+  position: relative;                /* Referencia para el botón ojo */
+}
+
+.pagina-login #password {
+  padding-right: 3rem;               /* Hueco para el botón ojo */
+}
+
+.pagina-login .login-boton-ojo {
+  position: absolute;
+  top: 50%;
+  right: 0.6rem;
+  transform: translateY(-50%);
+
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  color: var(--color-texto-secundario);
+
+  transition: background 0.2s, transform 0.06s, border-color 0.2s;
+}
+
+.pagina-login .login-boton-ojo:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.pagina-login .login-boton-ojo:active {
+  transform: translateY(-50%) translateY(1px);
+}
+
+
+/* =========================================================
+   06) LINK “OLVIDÉ CONTRASEÑA”
+   ========================================================= */
+
+.pagina-login .login-link {
+  display: inline-block;
+  margin: 0.1rem 0 1.25rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  color: var(--color-enlace);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagina-login .login-link:hover {
+  text-decoration: underline;
+}
+
+/* Botón submit full width */
+.pagina-login .login-boton-submit {
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   07) MODAL (AJUSTES DE LOGIN)
+   ========================================================= */
+
+.pagina-login .login-modal-texto {
+  margin: 0.5rem 0 0;
+  color: var(--color-texto-secundario);
+  line-height: 1.5;
+}
+
+/* Vista de confirmación centrada */
+.pagina-login .login-confirmacion {
+  text-align: center;
+}
+
+.pagina-login .login-confirmacion svg {
+  margin: 0 auto 0.75rem;
+}
+
+.pagina-login .login-confirmacion-titulo {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.pagina-login .login-confirmacion-texto {
+  margin: 0 0 1.25rem;
+  color: var(--color-texto-secundario);
+  line-height: 1.5;
+}
+
+/* Botones centrados en confirmación */
+.pagina-login .login-confirmacion-acciones {
+  justify-content: center;
+}
+
+
+/* =========================================================
+   08) FOOTER (SOLO LOGIN)
+   ========================================================= */
+
+.pagina-login .login-footer {
+  text-align: center;
+  padding: 1rem 0 1.25rem;
+  font-size: 0.85rem;
+  color: var(--color-texto-secundario);
+}
+
+
+/* =========================================================
+   09) RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 520px) {
+  .pagina-login .login-tarjeta {
+    padding: 1.5rem;
+  }
+
+  .pagina-login .login-contenedor {
+    padding-top: 2rem;
+  }
+}

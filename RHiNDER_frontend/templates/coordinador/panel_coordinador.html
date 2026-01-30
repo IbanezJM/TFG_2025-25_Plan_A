@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ titulo }}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.svg">
+
+    <!-- CSS común -->
+    <link rel="stylesheet" href="/static/css/comun/comun.css"/>
+    <link rel="stylesheet" href="/static/css/comun/panel.css"/>
+    <link rel="stylesheet" href="/static/css/coordinador/panel_coordinador.css"/>
+
+</head>
+
+<body>
+<!-- Header  -->
+{% include 'comun/header.html' %}
+
+<!-- Main -->
+<main class="contenido-principal vista-panel-coordinador">
+    <div class="envoltorio-contenido">
+
+        <!-- 1) HEADER -->
+        <!--====================================================================================-->
+        {% include 'comun/panel_seccion_bienvenida.html' %}
+
+        <!-- 2) ESTADÍSTICAS -->
+        <!--====================================================================================-->
+        <section class="seccion-estadisticas" aria-label="Resumen panel del trabajador">
+            <h2 class="titulo-seccion">Resumen</h2>
+            <div class="rejilla-estadisticas">
+            </div>
+        </section>
+
+
+        <!-- 3) GRÁFICOS ESTADÍSTICOS -->
+        <!--====================================================================================-->
+        <section class="seccion-graficos">
+
+            <div class="rejilla-graficos">
+
+                <!-- 3.1) Navegación del calendario -->
+                <article class="tarjeta tarjeta--relleno tarjeta-grafico">
+                    <div class="cabecera-tarjeta-grafico">
+                        <h3 class="titulo-grafico">Validaciones por día</h3>
+
+                            <!-- a. Dropdown-->
+                        <div class="dropdown-filtro" data-dropdown>
+                            <button class="dropdown-filtro__boton" type="button" data-dropdown-boton>
+                                <span class="dropdown-filtro__texto" id="filtro-barras-texto">Últimos 7 días</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6"/>
+                                </svg>
+                            </button>
+
+                            <ul class="dropdown-filtro__menu" data-dropdown-menu>
+                                <li>
+                                    <button type="button" data-valor="7">Últimos 7 días</button>
+                                </li>
+                                <li>
+                                    <button type="button" data-valor="14">Últimos 14 días</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- b. Gráfico Barras -->
+                    <div class="grafico-barras" id="grafico-barras">
+                        <!-- JS inserta barras -->
+                    </div>
+
+                </article>
+
+                 <!-- 3.2) Donut -->
+                <article class="tarjeta tarjeta--relleno tarjeta-grafico">
+                    <div class="cabecera-tarjeta-grafico">
+                        <h3 class="titulo-grafico">Estado de validaciones</h3>
+
+                        <!-- a. Dropdown-->
+                        <div class="dropdown-filtro" data-dropdown>
+                            <button class="dropdown-filtro__boton" type="button" data-dropdown-boton>
+                                <span class="dropdown-filtro__texto" id="filtro-donut-texto">Este mes</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6"/>
+                                </svg>
+                            </button>
+
+                            <ul class="dropdown-filtro__menu" data-dropdown-menu>
+                                <li>
+                                    <button type="button" data-valor="hoy">Hoy</button>
+                                </li>
+                                <li>
+                                    <button type="button" data-valor="mes">Este mes</button>
+                                </li>
+                                <li>
+                                    <button type="button" data-valor="anio">Este año</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- b. Gráfico Barras -->
+
+                    <!-- b.1 Donut -->
+                    <div class="contenedor-donut">
+
+                        <div class="donut" id="donut"
+                             style="--p-aprobadas: 0; --p-pendientes: 0; --p-rechazadas: 0;">
+
+                            <div class="donut__centro">
+                                <div class="donut__total" id="donut-total">0</div>
+                                <div class="donut__label">Total</div>
+                            </div>
+                        </div>
+
+                        <!-- b.1 Leyenda Donut -->
+                        <ul class="leyenda-donut">
+                            <li>
+                                <span class="punto punto--aprobadas"></span>
+                                Aprobadas
+                                <span class="leyenda-detalle" id="leyenda-aprobadas">0 (0%)</span>
+                            </li>
+                            <li>
+                                <span class="punto punto--pendientes"></span>
+                                Pendientes
+                                <span class="leyenda-detalle" id="leyenda-pendientes">0 (0%)</span>
+                            </li>
+                            <li>
+                                <span class="punto punto--rechazadas"></span>
+                                Rechazadas
+                                <span class="leyenda-detalle" id="leyenda-rechazadas">0 (0%)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<!-- 4) NAVEGADOR -->
+<!--====================================================================================-->
+{% include 'coordinador/nav_coordinador.html' %}
+
+<!-- scripts -->
+<script src="/static/js/coordinador/panel_coordinador.js" type="module"></script>
+</body>
+</html>

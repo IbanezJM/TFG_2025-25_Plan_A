@@ -1,0 +1,1158 @@
+/* =========================================================
+   01) RESET + BASE FORMULARIOS
+   ========================================================= */
+
+/* Reset sencillo y caja consistente */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* incluye contenido + padding + borde para que con el contenido siga midiendo lo mismo */
+    margin: 0; /* Elimina márgenes por defecto */
+}
+
+/* Inputs coherentes en toda la app */
+input,
+button,
+select,
+textarea {
+    max-width: 100%; /* Evita desbordes horizontales */
+    font-family: inherit; /* Hereda tipografía del body */
+}
+
+
+/* =========================================================
+   02) VARIABLES GLOBALES (Design Tokens)
+   ========================================================= */
+
+:root {
+    /* ---- Colores principales ---- */
+    --color-primario: #4f46e5; /* Color principal de marca */
+    --color-primario-hover: #4338ca; /* Hover del color principal */
+
+    /* ---- Fondo y texto ---- */
+    --color-fondo: #f0f2f5; /* Fondo general */
+    --color-tarjeta: #ffffff; /* Fondo de tarjetas */
+    --color-texto-principal: #333333; /* Texto principal */
+    --color-texto-secundario: #666666; /* Texto secundario */
+
+    /* ---- Estados y errores ---- */
+    --color-enlace: #1a73e8; /* Enlaces */
+    --color-error: #dc3545; /* Errores */
+    --color-notification: #ff4d4f; /* Badge / notificación */
+
+    /* ---- Layout ---- */
+    --radio-borde: 12px; /* Radio base */
+    --sombra-suave: 0 4px 20px rgba(0, 0, 0, .08); /* Sombra base */
+    --header-height: 80px; /* Altura header fijo */
+    --nav-height: 70px; /* Altura nav inferior fijo */
+}
+
+
+/* =========================================================
+   03) BODY (Base)
+   ========================================================= */
+
+body {
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; /* Tipografía UI */
+    color: var(--color-texto-principal); /* Color base del texto */
+    background-color: var(--color-fondo); /* Fondo global */
+
+    padding-top: var(--header-height); /* Reserva espacio para header fijo */
+    padding-bottom: var(--nav-height); /* Reserva espacio para bottom-nav fija */
+
+    -webkit-font-smoothing: antialiased; /* Suavizado fuentes (Chrome/Safari) -> prioriza suavidad frente a grosor*/
+    -moz-osx-font-smoothing: grayscale; /* Suavizado fuentes (macOS/Firefox) -> suaviza escala de grises, no sub-pixel*/
+}
+
+
+/* =========================================================
+   04) LAYOUT BASE (Contenedores)
+   ========================================================= */
+
+.contenido-principal {
+    width: 100%; /* Ancho completo */
+    max-width: 1200px; /* Límite de ancho en desktop */
+
+    padding: 1.5rem 1rem; /* Espaciado general */
+    margin: 0 auto; /* Centrado horizontal */
+}
+
+.envoltorio-contenido {
+    width: 100%; /* Ancho completo */
+    max-width: 1200px; /* Límite de ancho */
+    margin: 0 auto; /* Centrado horizontal */
+}
+
+
+/* =========================================================
+   05) CABECERA PRINCIPAL (Header fijo)
+   ========================================================= */
+
+.cabecera-principal {
+    display: grid; /* Layout con CSS Grid */
+    grid-template-columns: 1fr auto 1fr; /* Izquierda / centro / derecha */
+    align-items: center; /* Centrado vertical */
+
+    width: 100%; /* Ocupa todo el ancho */
+    height: var(--header-height); /* Altura fija por token */
+    padding: 0 2rem; /* Padding horizontal */
+
+    background-color: #ffffff; /* Fondo del header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .05); /* Sombra inferior suave */
+
+    position: fixed; /* Header fijo */
+    top: 0; /* Arriba */
+    left: 0; /* Izquierda */
+    z-index: 50; /* Por encima del contenido */
+}
+
+/* Logo (habitualmente un <img>) */
+.logo-cabecera {
+    justify-self: start; /* Alinea a la izquierda del grid */
+    height: 60px; /* Altura del logo */
+}
+
+/* Título centrado real (columna central "auto") */
+.titulo-pagina {
+    justify-self: center; /* Centrado horizontal */
+    font-size: 1.25rem; /* Tamaño */
+    font-weight: 600; /* Peso */
+    color: var(--color-texto-principal); /* Color */
+}
+
+/* Bloque derecho: nombre + icono */
+.nombre-icono {
+    display: flex; /* Layout interno */
+    flex-direction: row; /* En fila */
+    align-items: center; /* Centrado vertical */
+    justify-content: flex-end; /* Alineación derecha */
+    gap: 1rem; /* Separación */
+
+    justify-self: end; /* Columna derecha del grid */
+}
+
+/* Botón de perfil */
+.icono-perfil {
+    display: flex; /* Centrado del SVG */
+    align-items: center;
+    justify-content: center;
+
+    width: 44px; /* Tamaño */
+    height: 44px;
+    border-radius: 50%; /* Circular */
+
+    background-image: linear-gradient(to top, #7b3fe4, #9f63f0); /* Gradiente */
+    color: #ffffff; /* Color del icono */
+
+    cursor: pointer; /* aparece la mano típica de los enlaces y botones */
+    transition: transform 0.2s; /* Animación hover */
+}
+
+.icono-perfil:hover {
+    transform: scale(1.05); /* Feedback hover */
+}
+
+.icono-perfil svg {
+    width: 24px; /* Tamaño del SVG */
+    height: 24px;
+}
+
+
+/* =========================================================
+   06) NAV INFERIOR (Bottom-nav fija)
+   ========================================================= */
+
+.barra-navegacion-inferior {
+    display: flex; /* Layout */
+    align-items: center; /* Centrado vertical */
+    justify-content: space-around; /* Reparte items */
+
+    width: 100%; /* Ancho completo */
+    height: var(--nav-height); /* Altura por token */
+
+    background-color: #ffffff; /* Fondo */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, .05); /* Sombra superior */
+
+    position: fixed; /* Fijo abajo */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50; /* Por encima del contenido */
+}
+
+.item-navegacion {
+    display: flex; /* Layout interno */
+    flex-direction: column; /* Icono arriba, texto abajo */
+    align-items: center; /* Centrado horizontal */
+    justify-content: center; /* Centrado vertical */
+
+    position: relative; /* Para el badge */
+
+    padding: 0.5rem; /* Área clicable */
+    font-size: 0.75rem; /* Tamaño texto */
+    text-decoration: none; /* Sin subrayado */
+    color: var(--color-texto-secundario); /* Color por defecto */
+
+    transition: color 0.2s; /* Hover suave */
+}
+
+.item-navegacion.activo,
+.item-navegacion:hover {
+    color: var(--color-primario); /* Activo/hover */
+}
+
+.item-navegacion svg {
+    width: 24px; /* Tamaño icono */
+    height: 24px;
+    margin-bottom: 4px; /* Separación icono-texto */
+}
+
+.indicador-navegacion {
+    display: flex; /* Centra el número */
+    align-items: center;
+    justify-content: center;
+
+    width: 18px; /* Tamaño */
+    height: 18px;
+    border-radius: 50%; /* Circular */
+
+    background-color: var(--color-notification); /* Fondo */
+    color: #ffffff; /* Texto */
+    border: 2px solid #ffffff; /* Borde contraste */
+
+    font-size: 0.7rem; /* Tamaño número */
+    font-weight: 600; /* Peso número */
+
+    position: absolute;
+    /* Encima del icono -> saca al elemento del flujo normal del documento
+                              y lo posiciona respecto a un contenedor de referencia*/
+    top: 2px;
+    right: 10px;
+}
+
+.indicador-navegacion:empty {
+    display: none; /* Oculta si no hay valor */
+}
+
+
+/* =========================================================
+   07) BOTONES (Sistema común)
+   ========================================================= */
+
+/* Base compartida */
+.btn {
+    display: inline-flex; /* Inline flex */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    gap: 6px; /* Icono + texto */
+
+    font-family: inherit; /* Hereda tipografía */
+    font-weight: 700; /* Peso */
+    line-height: 1; /* Compacto */
+
+    border: 1px solid transparent; /* Controlado por variante */
+    cursor: pointer; /* Interactivo */
+    user-select: none; /* No seleccionable */
+    white-space: nowrap; /* No salta línea */
+    text-decoration: none; /* Si es link */
+
+    transition: background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.08s ease,
+    filter 0.18s ease; /* Transiciones */
+}
+
+.btn:active {
+    transform: translateY(1px); /* Feedback click */
+}
+
+.btn:disabled,
+.btn-tabla:disabled {
+    opacity: 0.6; /* Estado disabled */
+    cursor: not-allowed; /* Cursor disabled */
+}
+
+.btn:focus-visible,
+.btn-tabla:focus-visible {
+    outline: none; /* Sin outline default */
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, .2); /* Focus accesible */
+}
+
+/* Familia .btn (grandes / CTAs) */
+.btn {
+    font-size: 0.9rem; /* Tamaño */
+    padding: 0.7rem 1.2rem; /* Padding */
+    border-radius: 999px; /* Pill */
+
+    background: var(--color-fondo); /* Fondo base */
+    color: var(--color-texto-principal); /* Texto base */
+}
+
+.btn--lg {
+    padding: 0.9rem 1.4rem; /* Más grande */
+    font-size: 1rem; /* Texto mayor */
+}
+
+.btn--primary {
+    background: var(--color-primario); /* Fondo */
+    color: #ffffff; /* Texto */
+}
+
+.btn--primary:hover {
+    background: var(--color-primario-hover); /* Hover */
+}
+
+.btn--secondary {
+    background: var(--color-tarjeta); /* Fondo */
+    color: var(--color-texto-principal); /* Texto */
+    border-color: #e2e8f0; /* Borde */
+}
+
+.btn--secondary:hover {
+    background: #e5edf8; /* Hover */
+}
+
+.btn--danger {
+    background: #fee2e2; /* Fondo */
+    color: #b91c1c; /* Texto */
+    border-color: #fecaca; /* Borde */
+}
+
+.btn--danger:hover {
+    background: #fecaca; /* Hover */
+}
+
+.btn--danger:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in srgb, #ef4444 20%, transparent); /* Focus */
+}
+
+
+/* =========================================================
+   08) BOTONES TABLAS
+   ========================================================= */
+
+.btn-tabla {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: none;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: background-color .18s ease, transform .08s ease;
+}
+
+.btn-tabla:active {
+    transform: translateY(1px);
+}
+
+.btn-tabla__icono {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* Ver respuestas (azul) */
+.btn-tabla--ver {
+    background-color: #e0edff;
+    color: #2563eb;
+}
+
+.btn-tabla--ver:hover {
+    background-color: #c7dbff;
+}
+
+/* Cancelar (rojo suave) */
+.btn-tabla--cancelar {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.btn-tabla--cancelar:hover {
+    background-color: #fecaca;
+}
+
+.btn--tabla--seleccionar {
+    background: var(--color-tarjeta);
+}
+
+.btn--tabla--seleccionar {
+    background: #e5edf8;
+}
+
+
+/* =========================================================
+   09) TÍTULOS + CABECERA DE VISTA
+   ========================================================= */
+
+.titulo-seccion {
+    font-size: 1.25rem; /* Tamaño */
+    font-weight: 600; /* Peso */
+    margin: 0 0 1rem 0; /* Separación inferior */
+}
+
+.cabecera-vista {
+    margin: 0 0 1.25rem 0; /* Separación con el contenido */
+}
+
+.cabecera-vista .titulo-seccion {
+    margin: 0 0 0.35rem 0; /* Separación inferior */
+    font-size: 1.9rem; /* Tamaño grande */
+    font-weight: 800; /* Peso fuerte */
+    letter-spacing: -0.02em; /* Ajuste */
+}
+
+.cabecera-vista__subtitulo {
+    margin: 0; /* Sin margen */
+    color: var(--color-texto-secundario); /* Color */
+    font-size: 1rem; /* Tamaño */
+    line-height: 1.5; /* Legibilidad */
+}
+
+
+/* =========================================================
+   10) TARJETAS + PANELES
+   ========================================================= */
+
+.tarjeta {
+    background: var(--color-tarjeta); /* Fondo */
+    border-radius: var(--radio-borde); /* Radio */
+    box-shadow: var(--sombra-suave); /* Sombra */
+}
+
+.tarjeta--relleno {
+    padding: 1.25rem; /* Padding */
+}
+
+.rejilla-estadisticas {
+    display: grid; /* Grid */
+    grid-template-columns: 1fr 1fr 1fr; /* 3 columnas */
+    gap: 1.5rem; /* Espaciado */
+    margin-bottom: 1.5rem; /* Separación */
+}
+
+.tarjeta-estadistica {
+    background-color: var(--color-tarjeta); /* Fondo */
+    border-radius: var(--radio-borde); /* Radio */
+    padding: 1.5rem; /* Padding */
+    box-shadow: var(--sombra-suave); /* Sombra */
+
+    transition: box-shadow 0.18s ease, transform 0.18s ease; /* Hover */
+}
+
+.tarjeta-estadistica:hover {
+    box-shadow: 0 16px 35px rgba(15, 23, 42, .14); /* Sombra hover */
+    transform: translateY(-2px); /* Elevación */
+}
+
+.cabecera-tarjeta {
+    display: flex; /* Flex */
+    align-items: center; /* Centrado */
+    justify-content: space-between; /* Separación */
+    margin-bottom: 0.9rem; /* Separación */
+}
+
+.icono-tarjeta {
+    display: flex; /* Centrado */
+    align-items: center;
+    justify-content: center;
+
+    width: 40px; /* Tamaño */
+    height: 40px;
+    border-radius: 12px; /* Radio */
+}
+
+/* Variantes de color */
+.icono-tarjeta.naranja {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.icono-tarjeta.azul {
+    background-color: #e0edff;
+    color: #2563eb;
+}
+
+.icono-tarjeta.verde {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.icono-tarjeta.rojo {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.icono-tarjeta.morado {
+    background-color: #e0e7ff;
+    color: #5b21b6;
+}
+
+.icono-tarjeta-svg {
+    width: 24px; /* Tamaño SVG */
+    height: 24px;
+}
+
+.valor-estadistica {
+    font-size: 1.75rem; /* Valor */
+    font-weight: 700; /* Peso */
+    color: var(--color-texto-principal); /* Color */
+}
+
+.etiqueta-estadistica {
+    font-size: 0.95rem; /* Texto */
+    color: var(--color-texto-secundario); /* Color */
+}
+
+.panel {
+    background: var(--color-tarjeta); /* Fondo */
+    border-radius: var(--radio-borde); /* Radio */
+    box-shadow: var(--sombra-suave); /* Sombra */
+}
+
+.panel--padded {
+    padding: 1rem; /* Padding */
+}
+
+
+/* =========================================================
+   11) FILTROS
+   ========================================================= */
+
+.seccion-filtros {
+    margin-bottom: 1.5rem; /* Separación */
+}
+
+.rejilla-filtros {
+    display: grid; /* Grid */
+    grid-template-columns: 1.1fr 1fr 1fr auto; /* Distribución */
+    gap: 1rem; /* Espaciado */
+    align-items: end; /* Alinea a la base */
+}
+
+.grupo-filtro {
+    display: flex; /* Layout */
+    flex-direction: column; /* Columna */
+    gap: 0.4rem; /* Separación */
+}
+
+.etiqueta-filtro {
+    font-weight: 600; /* Peso */
+    font-size: 0.9rem; /* Tamaño */
+    color: var(--color-texto-secundario); /* Color */
+}
+
+.control-filtro {
+    width: 100%; /* Ancho */
+
+    padding: 0.75rem 0.9rem; /* Padding */
+    font-size: 0.95rem; /* Texto */
+    color: var(--color-texto-principal); /* Color texto */
+
+    background: #ffffff; /* Fondo */
+    border: 1px solid #e2e8f0; /* Borde */
+    border-radius: 10px; /* Radio */
+
+    outline: none;
+    /* Sin outline  -> elimina el contorno (outline) que el navegador dibuja automáticamente
+                         cuando un elemento recibe foco*/
+
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    /* Focus -> animacion suave cambios color borde / sombra,
+                                                                               al recibir o perder el foco. */
+}
+
+.control-filtro:focus {
+    border-color: var(--color-primario); /* Borde focus */
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18); /* Halo de foco */
+}
+
+
+
+.filtros-solicitudes__rejilla {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr auto; /* Estado / Rol / Buscar / Botón */
+    gap: 1rem;
+    align-items: end;
+}
+
+.rejilla-filtros {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr auto;
+    gap: 1rem;
+    align-items: end;
+}
+
+
+/* =========================================================
+   12) TABLAS (Sistema común)
+   ========================================================= */
+
+/* Cabecera superior de tabla (título + contador) */
+.cabecera-tabla {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 16px 16px 0 16px;
+}
+
+.cabecera-tabla__titulo {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-texto-principal);
+}
+
+.cabecera-tabla__contador {
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+
+    background: #f1f5f9;
+    color: #475569;
+
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* Scroll horizontal si hace falta */
+.contenedor-tabla {
+    overflow-x: auto;
+    padding: 12px 16px 16px 16px;
+}
+
+/* Tabla base común */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Cabecera */
+.tabla thead {
+    background: #f8fafc;
+}
+
+.tabla th,
+.tabla td {
+    padding: 14px 14px;
+    text-align: left;
+    border-bottom: 1px solid #eef2f7;
+
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.tabla th {
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+}
+
+/* Celdas típicas que se usan mucho */
+.celda-fecha,
+.celda-actualizado {
+    white-space: nowrap;
+    color: #475569;
+}
+
+/* Turno: badge + nombre */
+.celda-turno {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Acciones */
+.celda-acciones,
+.actions-cell {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+
+/* Estado vacío (texto cuando no hay registros) */
+.estado-vacio {
+    padding: 1.25rem 16px 16px 16px;
+    color: #64748b;
+}
+
+/* =========================================================
+   13) BADGES (comunes para tablas)
+   ========================================================= */
+
+/* Badge circular de turno */
+.badge-turno {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+
+    font-weight: 900;
+    font-size: 0.8rem;
+
+    background: #e2e8f0;
+    color: #334155;
+}
+
+/* Variantes turno */
+.badge-turno--M {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-turno--T {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.badge-turno--N {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.badge-turno--L {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-turno--S {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+/* Badge de estado */
+.badge-estado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 4px 10px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.78rem;
+    line-height: 1;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    user-select: none;
+    white-space: nowrap;
+}
+
+.punto-estado {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: currentColor;
+    opacity: 0.9;
+}
+
+/* Variantes estado */
+.badge-estado--pendiente {
+    background: #fef9c3;
+    color: #a16207;
+    border-color: #fde68a;
+}
+
+.badge-estado--pendiente_validacion {
+    background: #dbeafe;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+}
+
+.badge-estado--aprobado {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #a7f3d0;
+}
+
+.badge-estado--rechazado {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-color: #fecaca;
+}
+
+.badge-estado--cancelado {
+    background: #e2e8f0;
+    color: #475569;
+    border-color: #cbd5e1;
+}
+
+.badge-estado--expirado {
+    background: #f1f5f9;
+    color: #334155;
+    border-color: #e2e8f0;
+}
+
+
+
+/* =========================================================
+   14) PAGINACION
+   ========================================================= */
+
+.paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+
+    padding: 12px 0;
+
+    margin-top: 16px; /* ✅ separación con el panel superior */
+}
+
+.paginacion__btn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    cursor: pointer;
+}
+
+.paginacion__btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.paginacion__info {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+
+/* =========================================================
+   15) MODALES
+   ========================================================= */
+
+.modal-overlay {
+    /* Es una capa fija que cubre toda la pantalla y oscurece el fondo. Se usa para centrar el modal,
+     bloquear la interacción con la página y mostrar el contenido de forma clara y accesible
+     */
+    display: flex; /* Centrado */
+    align-items: center;
+    justify-content: center;
+
+    position: fixed; /* Pantalla completa */
+    inset: 0; /* 0 en todos los lados: top, bottom, left, right */
+    z-index: 100; /* Por encima del contenido */
+
+    background-color: rgba(15, 23, 42, .5); /* Fondo oscuro */
+
+    opacity: 0; /* Oculto */
+    visibility: hidden; /* No interactuable */
+    transition: opacity 0.3s, visibility 0s 0.3s; /* Transición */
+}
+
+.modal-overlay.visible {
+    opacity: 1; /* Visible */
+    visibility: visible; /* Interactuable */
+    transition: opacity 0.3s; /* Entrada */
+}
+
+.modal-content {
+    width: 90%; /* Adaptativo */
+    max-width: 520px; /* Máximo */
+
+    padding: 2rem; /* Padding */
+    text-align: center; /* Texto */
+
+    background-color: var(--color-tarjeta); /* Fondo */
+    border-radius: var(--radio-borde); /* Radio */
+    box-shadow: var(--sombra-suave); /* Sombra */
+
+    transform: scale(0.95) translateY(10px); /* Estado inicial */
+    opacity: 0; /* Estado inicial */
+    transition: transform 0.3s, opacity 0.3s; /* Animación */
+}
+
+.modal-overlay.visible .modal-content {
+    transform: scale(1) translateY(0); /* Estado final */
+    opacity: 1; /* Visible */
+}
+
+.modal-content.modal-lg {
+    max-width: 720px; /* Modal grande */
+}
+
+.modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 1.25rem; /* Separación */
+}
+
+.modal-acciones {
+    display: flex; /* Botones */
+    justify-content: center; /* A la derecha */
+    gap: 0.75rem; /* Separación */
+    margin-top: 2rem; /* Separación */
+}
+
+
+/* Contenedor general */
+.modal-info {
+    display: flex;
+    flex-direction: column; /* elementos uno debajo del otro */
+    gap: 14px; /* separación entre bloques */
+    align-items: center; /* TODO alineado a la izquierda */
+}
+
+/* Cada bloque (label + valor) */
+.modal-info__bloque {
+    display: flex;
+    flex-direction: column; /* label arriba, valor debajo */
+    gap: 6px;
+}
+
+/* Texto pequeño */
+.modal-info__label {
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    font-weight: 600;
+}
+
+/* Texto destacado */
+.modal-info__valor {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-texto-principal);
+}
+
+
+/*=========================================*/
+
+.modal-titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0; /* Sin margen */
+    font-size: 1.125rem; /* Tamaño */
+    font-weight: 700; /* Peso */
+}
+
+.btn-icono-cerrar {
+    padding: 6px; /* Área clicable */
+    border-radius: 999px; /* Redondo */
+
+    border: none; /* Sin borde */
+    background: transparent; /* Transparente */
+    cursor: pointer; /* Interactivo */
+
+    transition: background 0.2s; /* Hover */
+}
+
+.btn-icono-cerrar:hover {
+    background: #f3f4f6; /* Hover */
+}
+
+.modal-cuerpo {
+    color: var(--color-texto-secundario); /* Texto secundario */
+}
+
+
+.acciones-respuesta {
+    display: flex; /* Layout */
+    align-items: center;
+    gap: 8px;
+
+    margin-left: auto; /* Empuja al extremo derecho */
+}
+
+
+/* =========================================================
+   12) MEDIA QUERIES (RESPONSIVE) — TODAS AL FINAL
+   =========================================================
+   Breakpoints recomendados (max-width):
+   - 1440px → desktop grande / 2K
+   - 1280px → desktop / laptop
+   - 1024px → tablet horizontal / laptop pequeño
+   - 900px  → transición (opcional)
+   - 768px  → tablet / móvil grande
+   - 600px  → móvil grande
+   - 480px  → móvil estándar
+   - 360px  → móvil pequeño
+   ========================================================= */
+
+
+/* ---------- <= 1440px ---------- */
+@media (max-width: 1440px) {
+    /* (Opcional) Ajustes leves para pantallas grandes */
+    /* .contenido-principal { max-width: 1200px; } */
+}
+
+
+/* ---------- <= 1280px ---------- */
+@media (max-width: 1280px) {
+    /* (Opcional) Reduce padding del header en laptops */
+    /* .cabecera-principal { padding: 0 1.5rem; } */
+}
+
+
+/* ---------- <= 1024px ---------- */
+@media (max-width: 1024px) {
+    /* (Opcional) Ajustes de espaciados generales */
+    /* .contenido-principal { padding: 1.25rem 1rem; } */
+
+    /*RESPONSIVE tablas -> cards (común)*/
+    .tabla {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .tabla thead {
+        display: none;
+    }
+
+    .tabla tbody {
+        display: block;
+    }
+
+    .tabla tr {
+        display: block;
+
+        margin: 12px;
+        overflow: hidden;
+
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+    }
+
+    .tabla td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+
+        padding: 12px 14px;
+        border-top: 1px solid #eef2f7;
+    }
+
+    .tabla td:first-child {
+        border-top: none;
+    }
+
+    .tabla td::before {
+        content: attr(data-etiqueta);
+
+        font-weight: 900;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #64748b;
+
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
+
+    .tabla td > * {
+        margin-left: auto;
+    }
+
+    /* Alineación típica */
+    .tabla td[data-etiqueta="Estado"] {
+        align-items: center;
+    }
+}
+
+
+/* ---------- <= 900px (opcional) ---------- */
+@media (max-width: 900px) {
+    /* (Opcional) Punto intermedio si notas “saltos” */
+    .rejilla-filtros,
+    .filtros-solicitudes__rejilla {
+        grid-template-columns: 0.9fr 0.9fr 1.6fr auto;
+    }
+}
+
+
+/* ---------- <= 768px ---------- */
+@media (max-width: 768px) {
+    .cabecera-principal {
+        grid-template-columns: 1fr 1fr; /* Izquierda / derecha */
+    }
+
+
+    /* Header */
+    .cabecera-principal {
+        padding: 0 1rem; /* Menos padding lateral */
+    }
+
+    /* Título centrado real (columna central "auto") */
+    .titulo-pagina {
+        display: none /* No mostrar título */
+    }
+
+
+    /* Cabecera de vista */
+    .cabecera-vista .titulo-seccion {
+        font-size: 1.55rem; /* Reduce títulos */
+    }
+
+    /* Estadísticas */
+    .rejilla-estadisticas {
+        grid-template-columns: 1fr; /* 2 columnas */
+    }
+
+    /* Filtros */
+    .rejilla-filtros {
+        grid-template-columns: 1fr; /* 1 columna */
+    }
+
+    .rejilla-estadisticas {
+        grid-template-columns: 1fr;
+    }
+
+    /* ✅ filtros en móvil: 1 columna */
+    .rejilla-filtros,
+    .filtros-solicitudes__rejilla {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ---------- <= 600px ---------- */
+@media (max-width: 600px) {
+    /* (Opcional) Ajuste de título del header */
+    /* .titulo-pagina { font-size: 1.1rem; } */
+}
+
+
+/* ---------- <= 480px ---------- */
+@media (max-width: 480px) {
+
+    /* Header: reduce gap del bloque derecho */
+    .nombre-icono {
+        gap: 0.75rem; /* Menos espacio */
+    }
+}
+
+
+/* ---------- <= 360px ---------- */
+@media (max-width: 360px) {
+    /* (Opcional) Ajustes para móviles muy pequeños */
+    /* .titulo-pagina { font-size: 1rem; } */
+    /* .icono-perfil { width: 40px; height: 40px; } */
+}
